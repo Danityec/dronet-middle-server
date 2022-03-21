@@ -33,12 +33,12 @@ const axios = require('axios');
 
 exports.controller = {
     getRemote(req, res) {
-        const localYaw = req.query.yaw ? req.query.yaw : yaw
-        const localThrottle = req.query.throttle ? req.query.throttle : throttle
-        const localRoll = req.query.roll ? req.query.roll : roll
-        const localPitch = req.query.pitch ? req.query.pitch : pitch
+        yaw = req.query.yaw ? req.query.yaw : yaw
+        throttle = req.query.throttle ? req.query.throttle : throttle
+        roll = req.query.roll ? req.query.roll : roll
+        pitch = req.query.pitch ? req.query.pitch : pitch
 
-        axios.get(`https://dronet-simulation.herokuapp.com/api/remote/get?yaw=${localYaw}&throttle=${localThrottle}&roll=${localRoll}&pitch=${localPitch}`)
+        axios.get(`https://dronet-simulation.herokuapp.com/api/remote/get?yaw=${yaw}&throttle=${throttle}&roll=${roll}&pitch=${pitch}`)
         .then(function (response) {
             res.sendStatus(200); 
         })

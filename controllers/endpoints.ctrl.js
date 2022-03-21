@@ -1,4 +1,4 @@
-// let yaw = 0, throttle = 0, roll = 0, pitch = 0;
+let yaw = 0, throttle = 0, roll = 0, pitch = 0;
 
 // exports.controller = {
 //     getRemote(req, res) {
@@ -33,8 +33,12 @@ const axios = require('axios');
 
 exports.controller = {
     getRemote(req, res) {
-       
-        axios.get(`https://dronet-simulation.herokuapp.com/api/remote/get?yaw=${req.query.yaw}&throttle=${req.query.throttle}&roll=${req.query.roll}&pitch=${req.query.pitch}`)
+        const localYaw = req.query.yaw ? req.query.yaw : yaw
+        const localThrottle = req.query.throttle ? req.query.throttle : throttle
+        const localRoll = req.query.roll ? req.query.roll : roll
+        const localPitch = req.query.pitch ? req.query.pitch : pitch
+
+        axios.get(`https://dronet-simulation.herokuapp.com/api/remote/get?yaw=${localYaw}&throttle=${localThrottle}&roll=${localRoll}&pitch=${localPitch}`)
         .then(function (response) {
             res.sendStatus(200); 
         })
@@ -53,10 +57,10 @@ exports.controller = {
                 "Access-Control-Allow-Origin": "*",
             });
             res.json({
-                "yaw":data.yaw,
-                "throttle":data.throttle,
-                "roll":data.roll,
-                "pitch":data.pitch
+                "yaw": data.yaw,
+                "throttle": data.throttle,
+                "roll": data.roll,
+                "pitch": data.pitch
             })
         })
         .catch(function (error) {
